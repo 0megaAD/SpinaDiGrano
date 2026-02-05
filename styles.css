@@ -8,7 +8,7 @@
   --line: rgba(255,255,255,0.12);
 
   --text: rgba(255,255,255,0.92);
-  --muted: rgba(255,255,255,0.68);
+  --muted: rgba(255,255,255,0.72);
 
   --green: #2ee38a;
   --green2:#0fb36a;
@@ -24,6 +24,7 @@
 
 *{ box-sizing: border-box; }
 html{ scroll-behavior: smooth; }
+
 body{
   margin: 0;
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
@@ -39,10 +40,10 @@ body{
 .container{
   width: min(1100px, 100%);
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 14px;
 }
 
-/* HEADER (mobile-first) */
+/* HEADER */
 .site-header{
   position: sticky;
   top: 0;
@@ -69,6 +70,7 @@ body{
   width: 52px;
   height: 52px;
   object-fit: contain;
+  aspect-ratio: 1 / 1;
   border-radius: 14px;
   background: rgba(255,255,255,0.06);
   padding: 6px;
@@ -90,14 +92,20 @@ body{
   font-size: 0.92rem;
 }
 
-/* NAV: “chips” sem parecer botões */
+/* NAV */
 .nav{
   display: flex;
   gap: 10px;
   overflow: auto;
   padding-bottom: 6px;
   scrollbar-width: thin;
+
+  -webkit-overflow-scrolling: touch;
 }
+.nav::-webkit-scrollbar{
+  height: 0;
+}
+
 .nav a{
   white-space: nowrap;
   text-decoration: none;
@@ -153,7 +161,11 @@ body{
 /* SECTIONS */
 .section{
   margin: 26px 0 34px;
+
+  /* evita o sticky header cobrir o título ao clicar no menu */
+  scroll-margin-top: 110px;
 }
+
 .section-head{
   display: grid;
   gap: 6px;
@@ -201,25 +213,28 @@ body{
   border: 1px solid rgba(255,255,255,0.12);
   background: rgba(255,255,255,0.05);
   border-radius: var(--radius);
-  padding: 14px;
+  padding: 16px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.32);
   position: relative;
   overflow: hidden;
 }
 
+/* brilho sutil (não atrapalha texto) */
 .item::before{
   content: "";
   position: absolute;
   inset: 0;
   background: radial-gradient(520px 120px at 20% 0%, rgba(46, 227, 138, 0.10), transparent 60%);
+  opacity: 0.55;
   pointer-events: none;
 }
 
+/* FIX: preço não quebra e não “some” */
 .item-top{
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: start;
   margin-bottom: 8px;
   position: relative;
 }
@@ -228,6 +243,7 @@ body{
   margin: 0;
   font-size: 1.02rem;
   line-height: 1.25;
+  min-width: 0;
 }
 
 .price{
@@ -236,7 +252,6 @@ body{
   white-space: nowrap;
   position: relative;
 
-  /* preço em vermelho, mas legível */
   color: rgba(255,255,255,0.95);
   padding: 6px 10px;
   border-radius: 999px;
@@ -246,7 +261,7 @@ body{
 
 .desc{
   margin: 0 0 10px;
-  color: var(--muted);
+  color: rgba(255,255,255,0.74);
   font-size: 0.95rem;
   position: relative;
 }
@@ -297,7 +312,9 @@ body{
   font-size: 0.9rem;
 }
 
+/* RESPONSIVO */
 @media (min-width: 640px){
+  .container{ padding: 0 16px; }
   .hero-card{ padding: 18px; }
   .grid{ grid-template-columns: repeat(2, 1fr); }
 }
@@ -308,6 +325,7 @@ body{
   .grid{ grid-template-columns: repeat(3, 1fr); }
 }
 
+/* Acessibilidade */
 @media (prefers-reduced-motion: reduce){
   html{ scroll-behavior: auto; }
 }
