@@ -297,7 +297,6 @@ body{
   font-size: 0.9rem;
 }
 
-/* RESPONSIVO */
 @media (min-width: 640px){
   .hero-card{ padding: 18px; }
   .grid{ grid-template-columns: repeat(2, 1fr); }
@@ -309,7 +308,6 @@ body{
   .grid{ grid-template-columns: repeat(3, 1fr); }
 }
 
-/* Acessibilidade: reduz animações caso o usuário peça */
 @media (prefers-reduced-motion: reduce){
   html{ scroll-behavior: auto; }
 }
